@@ -3,13 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import {
-  Button,
-  Card,
-  Form,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, Card, Form, Row, Col } from "react-bootstrap";
 import {
   checkUpdateProductSelector,
   isLoadingGlobalSelector,
@@ -34,6 +28,7 @@ export const DetailProduct = () => {
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState("");
   const [type, setType] = useState("");
+  const [images, setImages] = useState("");
 
   useEffect(() => {
     if (!checkUpdate) {
@@ -52,6 +47,7 @@ export const DetailProduct = () => {
       price: price || data?.values?.response?.price,
       discount: discount || data?.values?.response?.discount,
       type: type || data?.values?.response?.type,
+      images: images || data?.values?.response?.images,
     };
     await productRequest.updateProduct(dispatch, id, dataUpdate);
   };
@@ -130,6 +126,21 @@ export const DetailProduct = () => {
                         }}
                         placeholder="Discount"
                         type="number"
+                      ></Form.Control>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md="12">
+                    <Form.Group>
+                      <label>Image</label>
+                      <Form.Control
+                        defaultValue={data?.values?.response?.images}
+                        onChange={(e) => {
+                          setImages(e.target.value);
+                        }}
+                        placeholder="Image"
+                        type="text"
                       ></Form.Control>
                     </Form.Group>
                   </Col>

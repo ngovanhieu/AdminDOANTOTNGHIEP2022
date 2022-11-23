@@ -23,9 +23,7 @@ export const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [discount, setDiscount] = useState("");
   const [type, setType] = useState("");
-  const [images, setImages] = useState(
-    "https://cdn.tgdd.vn/Files/2019/07/25/1181734/do-sau-truong-anh-la-gi-cach-thiet-lap-de-chup-anh-dep-nhat--3.jpg"
-  );
+  const [images, setImages] = useState("");
 
   const dispatch = useDispatch();
   const addProduct = () => {
@@ -134,6 +132,22 @@ export const AddProduct = () => {
                       }}
                       placeholder="Discount"
                       type="number"
+                    ></Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md="12">
+                  <Form.Group>
+                    <label>Image</label>
+                    <Form.Control
+                      // defaultValue={data?.values?.response?.discount}
+                      value={images}
+                      onChange={(e) => {
+                        setImages(e.target.value);
+                      }}
+                      placeholder="Image"
+                      type="text"
                     ></Form.Control>
                   </Form.Group>
                 </Col>

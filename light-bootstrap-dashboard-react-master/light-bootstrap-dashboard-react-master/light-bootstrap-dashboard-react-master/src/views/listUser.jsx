@@ -1,9 +1,9 @@
-import productRequest from "APIs/products";
+import userRequest from "APIs/users";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // react-bootstrap components
 import { Card, Table, Container, Row, Col } from "react-bootstrap";
-import { alertSelector, dataProductsSelector } from "../redux";
+import { alertSelector, dataUsersSelector } from "../redux";
 import { useHistory } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -12,9 +12,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-function TableList() {
+function ListUser() {
   const dispatch = useDispatch();
-  const data = useSelector(dataProductsSelector);
+  const data = useSelector(dataUsersSelector);
   let history = useHistory();
   const alert = useSelector(alertSelector);
   const [open, setOpen] = useState(false);
@@ -32,15 +32,15 @@ function TableList() {
 
   const handleDelete = () => {
     setOpen(false);
-    productRequest.removeProduct(dispatch, item._id);
+    userRequest.removeUser(dispatch, item._id);
   };
 
   useEffect(() => {
-    productRequest.getAllProducts(dispatch);
+    userRequest.getAllUsers(dispatch);
   }, []);
 
   useEffect(() => {
-    if (alert.displayAlert) productRequest.getAllProducts(dispatch);
+    if (alert.displayAlert) userRequest.getAllUsers(dispatch);
   }, [alert]);
 
   return (
@@ -50,9 +50,9 @@ function TableList() {
           <Col md="12">
             <Button
               variant="outlined"
-              onClick={(e) => history.push("/admin/addProduct")}
+              onClick={(e) => history.push("/admin/addUser")}
             >
-              Create product
+              Create user
             </Button>
           </Col>
         </Row>
@@ -61,20 +61,17 @@ function TableList() {
             {/* <Card className="card-plain table-plain-bg"> */}
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">List Of Product</Card.Title>
-                <p className="card-category">
-                  Here is a subtitle for this table
-                </p>
+                <Card.Title as="h4">List Of User</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>
-                      <th className="border-0">Image</th>
+                      <th className="border-0">Email</th>
+                      <th className="border-0">Role</th>
                       <th className="border-0">Name</th>
-                      <th className="border-0">Quantity</th>
-                      <th className="border-0">Price</th>
+                      <th className="border-0">Phone</th>
                       <th className="border-0">Action</th>
                     </tr>
                   </thead>
@@ -83,20 +80,13 @@ function TableList() {
                       <tr
                         key={index}
                         style={{ cursor: `pointer` }}
-                        onClick={(e) =>
-                          history.push(`/admin/product/${item._id}`)
-                        }
+                        onClick={(e) => history.push(`/admin/user/${item._id}`)}
                       >
                         <td>{item._id}</td>
-                        <td>
-                          <div
-                            className="image_tableList"
-                            style={{ backgroundImage: `url(${item.images})` }}
-                          ></div>
-                        </td>
-                        <td>{item.productName}</td>
-                        <td>{item.quantity}</td>
-                        <td>{item.price}</td>
+                        <td>{item.email}</td>
+                        <td>{item.isAdmin ? "Admin" : "Customer"}</td>
+                        <td>{item.name}</td>
+                        <td>{item.phone}</td>
                         <td
                           className="btn-delete"
                           onClick={(e) => handleClickOpen(item, e)}
@@ -122,7 +112,7 @@ function TableList() {
         <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Do you want to delete product {item.productName} ?
+            Do you want to delete user {item.email} ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -136,4 +126,4 @@ function TableList() {
   );
 }
 
-export default TableList;
+export default ListUser;

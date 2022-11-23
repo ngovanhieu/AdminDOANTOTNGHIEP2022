@@ -44,14 +44,14 @@ function Sidebar({ color, image, routes }) {
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "User Profile",
+    path: "/users",
+    name: "User Management",
     icon: "nc-icon nc-circle-09",
     layout: "/admin"
   },
   {
     path: "/products",
-    name: "Products",
+    name: "Products Management",
     icon: "nc-icon nc-notes",
     layout: "/admin"
   },
