@@ -1,4 +1,17 @@
-import { CHECK_UPDATE_PRODUCT, CHECK_UPDATE_USER, SET_CHECK_ITEM_PRODUCT, SET_DATA_PRODUCTS, SET_DATA_USERS, SET_DISPLAY_ALERT, SET_ITEM_PRODUCT, SET_ITEM_PROP_ALERT, SET_ITEM_USER, SET_LOADING, UPDATE_PRODUCT } from "./constants";
+import {
+  CHECK_UPDATE_PRODUCT,
+  CHECK_UPDATE_USER,
+  SET_CHECK_ITEM_PRODUCT,
+  SET_DATA_ORDERS,
+  SET_DATA_PRODUCTS,
+  SET_DATA_USERS,
+  SET_DISPLAY_ALERT,
+  SET_ITEM_PRODUCT,
+  SET_ITEM_PROP_ALERT,
+  SET_ITEM_USER,
+  SET_LOADING,
+  UPDATE_PRODUCT,
+} from "./constants";
 
 export const setDisplayAlert = (payload) => ({
   type: SET_DISPLAY_ALERT,
@@ -9,9 +22,12 @@ export const setItemPropAlert = (payload) => ({
   payload: payload,
 });
 
-
 export const setDataProducts = (payload) => ({
   type: SET_DATA_PRODUCTS,
+  payload: payload,
+});
+export const setDataOrders = (payload) => ({
+  type: SET_DATA_ORDERS,
   payload: payload,
 });
 export const setItemProduct = (payload) => ({
@@ -39,4 +55,3 @@ export const setItemUser = (payload) => ({
   type: SET_ITEM_USER,
   payload: payload,
 });
-

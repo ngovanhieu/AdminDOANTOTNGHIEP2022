@@ -2,6 +2,7 @@ import userRequest from "APIs/users";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // react-bootstrap components
+import axios from "axios";
 import {
   alertSelector,
   checkUpdateUserSelector,
@@ -22,7 +23,9 @@ import {
   Container,
   Row,
   Col,
+  Table,
 } from "react-bootstrap";
+import dateFormat from "dateformat";
 
 function User() {
   const location = useLocation();
@@ -35,7 +38,7 @@ function User() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-
+  const [historyOrder, setHistoryOrder] = useState([]);
   useEffect(() => {
     if (!checkUpdate) {
       userRequest.getUser(dispatch, id);
@@ -50,7 +53,9 @@ function User() {
     };
     await userRequest.updateUser(dispatch, id, dataUpdate);
   };
-
+  useEffect(() => {
+    fetchData();
+  }, [data]);
   const handleRole = (e) => {
     if (e.target.value === "1") {
       setIsAdmin(true);
@@ -58,6 +63,22 @@ function User() {
       setIsAdmin(false);
     }
   };
+
+  const fetchData = () => {
+    console.log(data);
+    axios
+      .get(
+        `http://localhost:5000/api/orders/getOrderByUserId/${data.values._id}`
+      )
+      .then(function (response) {
+        console.log(response);
+        setHistoryOrder(response.data.orders);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       {!isLoading && (
@@ -212,6 +233,49 @@ function User() {
                     <i className="fab fa-google-plus-square"></i>
                   </Button>
                 </div>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="12">
+              <Card>
+                <Card.Header>
+                  <Card.Title as="h4">History Order</Card.Title>
+                </Card.Header>
+                <Card.Body>
+                  <Table className="table-hover">
+                    <thead>
+                      <tr>
+                        <th className="border-0">Hình Ảnh</th>
+                        <th className="border-0">Tên Sản Phẩm</th>
+                        <th className="border-0">Giá Tiền </th>
+                        <th className="border-0">Số lượng </th>
+                        <th className="border-0">Tổng tiền</th>
+                        <th className="border-0">Ngày đặt</th>
+                        <th className="border-0">Trạng thái</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {historyOrder.map((item, index) => (
+                        <tr style={{ cursor: `pointer` }}>
+                          <td>{item?._id}</td>
+                          <td>{item?.productName}</td>
+                          <td>{item?.price}</td>
+                          <td>{item?.quantity}</td>
+                          <td>{(item?.quantity) * (item?.price)}</td>
+                          <td>{dateFormat(item?.createdAt, "dd/mm/yyyy")}</td>
+                          <td> {item.orderStatus === "2"
+                            ? "Vừa đặt"
+                            : item.orderStatus === "1"
+                            ? "Đang giao"
+                            : item.orderStatus === "3"
+                            ? "Đã nhận"
+                            : "Đã hủy"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </Card.Body>
               </Card>
             </Col>
           </Row>

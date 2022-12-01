@@ -27,6 +27,7 @@ import { DetailProduct } from "views/DetailProduct";
 import { AddProduct } from "views/AddProduct";
 import ListUser from "views/listUser";
 import { AddUser } from "views/AddUser";
+import { ListOrder } from "views/listOrder";
 
 const dashboardRoutes = [
   // {
@@ -77,6 +78,13 @@ const dashboardRoutes = [
     name: "Add Product",
     icon: "nc-icon nc-paper-2",
     component: AddProduct,
+    layout: "/admin",
+  },
+  {
+    path: "/listOrder",
+    name: "List Order",
+    icon: "nc-icon nc-paper-2",
+    component: ListOrder,
     layout: "/admin",
   },
   {

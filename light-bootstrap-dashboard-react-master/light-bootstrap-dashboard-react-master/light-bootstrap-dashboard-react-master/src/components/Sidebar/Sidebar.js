@@ -55,17 +55,12 @@ function Sidebar({ color, image, routes }) {
     icon: "nc-icon nc-notes",
     layout: "/admin"
   },
+ 
   {
-    path: "/typography",
-    name: "Typography",
+    path: "/listOrder",
+    name: "Order Management",
     icon: "nc-icon nc-paper-2",
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-atom",
-    layout: "/admin"
+    layout: "/admin",
   },
   // {
   //   path: "/maps",
@@ -74,12 +69,12 @@ function Sidebar({ color, image, routes }) {
   //   component: Maps,
   //   layout: "/admin"
   // },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
-    layout: "/admin"
-  }
+  // {
+  //   path: "/notifications",
+  //   name: "Notifications",
+  //   icon: "nc-icon nc-bell-55",
+  //   layout: "/admin"
+  // }
   ]
   return (
     <div className="sidebar" data-image={image} data-color={color}>

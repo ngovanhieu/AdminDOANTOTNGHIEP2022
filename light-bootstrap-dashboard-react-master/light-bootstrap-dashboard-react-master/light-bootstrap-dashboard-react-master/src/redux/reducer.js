@@ -1,6 +1,7 @@
 import {
   CHECK_UPDATE_PRODUCT,
   CHECK_UPDATE_USER,
+  SET_DATA_ORDERS,
   SET_DATA_PRODUCTS,
   SET_DATA_USERS,
   SET_DISPLAY_ALERT,
@@ -17,6 +18,10 @@ const initialState = {
   },
 
   products: {
+    values: [],
+    checkSucces: "",
+  },
+  orders: {
     values: [],
     checkSucces: "",
   },
@@ -68,6 +73,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: {
+          values: action.payload,
+        },
+      };
+    case SET_DATA_ORDERS:
+      return {
+        ...state,
+        orders: {
           values: action.payload,
         },
       };
