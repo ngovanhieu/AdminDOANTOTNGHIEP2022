@@ -28,16 +28,16 @@ import { AddProduct } from "views/AddProduct";
 import ListUser from "views/listUser";
 import { AddUser } from "views/AddUser";
 import { ListOrder } from "views/listOrder";
+import { Login } from "views/Login";
 
 const dashboardRoutes = [
-  // {
-  //   upgrade: true,
-  //   path: "/upgrade",
-  //   name: "Upgrade to PRO",
-  //   icon: "nc-icon nc-alien-33",
-  //   component: Upgrade,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/",
+    name: "",
+    icon: "nc-icon nc-chart-pie-35",
+    component: Login,
+    layout: "/login",
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -45,6 +45,7 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin",
   },
+
   {
     path: "/users",
     name: "User",

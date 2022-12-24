@@ -194,16 +194,16 @@ function User() {
                       <img
                         alt="..."
                         className="avatar border-gray"
-                        src={require("assets/img/faces/face-3.jpg")}
+                        src={require("assets/img/faces/z3986043312056_6126f7d8687cb128be676b8d8c966c6f.jpg")}
                       ></img>
-                      <h5 className="title">Mike Andrew</h5>
+                      <h5 className="title">{data?.values?.name}</h5>
                     </a>
-                    <p className="description">michael24</p>
+                    <p className="description">{data?.values?.email}</p>
                   </div>
                   <p className="description text-center">
-                    "Lamborghini Mercy <br></br>
-                    Your chick she so thirsty <br></br>
-                    I'm in that two seat Lambo"
+                    "Chúng tôi sẽ làm tất cả để thành công <br></br>
+                    Đơn giản bởi chúng tôi là những người trẻ <br></br>
+                    và chúng tôi không bao giờ biết từ bỏ."
                   </p>
                 </Card.Body>
                 <hr></hr>

@@ -51,7 +51,7 @@ function Sidebar({ color, image, routes }) {
   },
   {
     path: "/products",
-    name: "Products Management",
+    name: "Products  Management",
     icon: "nc-icon nc-notes",
     layout: "/admin"
   },
@@ -95,7 +95,7 @@ function Sidebar({ color, image, routes }) {
             </div>
           </a>
           <a className="simple-text" href="http://www.creative-tim.com">
-            Creative Tim
+            AloPhone
           </a>
         </div>
         <Nav>

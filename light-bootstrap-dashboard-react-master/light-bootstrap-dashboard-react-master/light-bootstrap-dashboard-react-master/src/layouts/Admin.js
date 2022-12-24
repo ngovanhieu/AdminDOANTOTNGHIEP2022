@@ -29,6 +29,7 @@ import sidebarImage from "assets/img/sidebar-4.jpg";
 import { useSelector } from "react-redux";
 import { alertSelector, isLoadingGlobalSelector } from "../redux";
 import { AlertMessage } from "components/alert/alert";
+import { Login } from "views/Login";
 
 function Admin() {
   const [image, setImage] = React.useState(sidebarImage);
@@ -38,6 +39,8 @@ function Admin() {
   const mainPanel = React.useRef(null);
   const loading = useSelector(isLoadingGlobalSelector);
   const alert = useSelector(alertSelector);
+  const isAdmin = localStorage.getItem("isAdmin");
+  const userId = localStorage.getItem("userId");
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -54,33 +57,41 @@ function Admin() {
     });
   };
   React.useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    mainPanel.current.scrollTop = 0;
-    if (
-      window.innerWidth < 993 &&
-      document.documentElement.className.indexOf("nav-open") !== -1
-    ) {
-      document.documentElement.classList.toggle("nav-open");
-      var element = document.getElementById("bodyClick");
-      element.parentNode.removeChild(element);
+    if (isAdmin === "true") {
+      document.documentElement.scrollTop = 0;
+      document.scrollingElement.scrollTop = 0;
+      mainPanel.current.scrollTop = 0;
+      if (
+        window.innerWidth < 993 &&
+        document.documentElement.className.indexOf("nav-open") !== -1
+      ) {
+        document.documentElement.classList.toggle("nav-open");
+        var element = document.getElementById("bodyClick");
+        element.parentNode.removeChild(element);
+      }
     }
   }, [location]);
   return (
     <>
       {loading && loading}
       {alert.displayAlert && <AlertMessage chilren={alert.itemPropAlert} />}
-      <div className="wrapper">
-        <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
-        <div className="main-panel" ref={mainPanel}>
-          <AdminNavbar />
-          <div className="content">
-            <Switch>{getRoutes(routes)}</Switch>
+      {isAdmin === "true" && userId ? (
+        <>
+          <div className="wrapper">
+            <Sidebar
+              color={color}
+              image={hasImage ? image : ""}
+              routes={routes}
+            />
+            <div className="main-panel" ref={mainPanel}>
+              <AdminNavbar />
+              <div className="content">
+                <Switch>{getRoutes(routes)}</Switch>
+              </div>
+              <Footer />
+            </div>
           </div>
-          <Footer />
-        </div>
-      </div>
-      {/* <FixedPlugin
+          {/* <FixedPlugin
         hasImage={hasImage}
         setHasImage={() => setHasImage(!hasImage)}
         color={color}
@@ -88,6 +99,10 @@ function Admin() {
         image={image}
         setImage={(image) => setImage(image)}
       /> */}
+        </>
+      ) : (
+        <Login />
+      )}
     </>
   );
 }
